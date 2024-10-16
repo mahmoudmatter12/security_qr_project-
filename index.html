@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LoginPage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #F0F0F0;
+            font-family: "Cairo", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+        
+        /* Loading screen styles */
+        .loading-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #133d85;
+        }
+        
+        .loading-screen img {
+            max-width: 100%;
+            width: 600px;
+            height: auto;
+        }
+        
+        /* Responsive for tablets and smaller devices */
+        @media (max-width: 768px) {
+            .loading-screen img {
+                width: 80%;
+            }
+        }
+        
+        /* Responsive for mobile devices */
+        @media (max-width: 480px) {
+            .loading-screen img {
+                width: 60%;
+            }
+        }
+        
+        /* Login form styles (initially hidden) */
+        .login-page {
+            display: none; /* Hidden initially */
+            flex-direction: column; /* Stack the content vertically */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .welcome {
+            color: #133d85;
+            font-size: 75px;
+            text-align: center;
+        }
+        
+        .input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        
+        input {
+            background-color: #F0F0F0;
+            color: #333;
+            border: 10px solid #133d85;
+            font-size: 40px;
+            border-radius: 40px;
+            width: 700px;
+            height: 100px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        button {
+            padding: 40px 100px;
+            font-size: 40px;
+            cursor: pointer;
+            background-color: #133d85;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            margin-top: 70px;
+        }
+        
+        input:hover {
+            border: 10px solid #ce7940;
+        }
+        
+        button:hover {
+            background-color: #ce7940;
+        }
+        
+        @media (max-width: 768px) {
+            .welcome {
+                font-size: 55px;
+            }
+        
+            input {
+                font-size: 50px;
+                height: 80px;
+            }
+        
+            button {
+                padding: 30px 80px;
+                font-size: 35px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .welcome {
+                font-size: 40px;
+            }
+        
+            input {
+                font-size: 40px;
+                height: 70px;
+            }
+        
+            button {
+                padding: 20px 60px;
+                font-size: 30px;
+            }
+        }
+        
+        .start {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .title h1{
+            font-size: 200px;
+            color: #133d85;
+           
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- Loading screen (logo) -->
+    <div class="loading-screen">
+        <img src="/assits/logo.png" alt="Logo">
+    </div>
+
+    <!-- Login form (initially hidden) -->
+    <div class="login-page">
+        <div class="start">
+            <img src="/assits/logo.png" alt="Logo">
+        </div>
+
+        <div class="title">
+            <h1> ! مرحبا</h1>
+        </div>
+
+        <!-- Input fields for username and password -->
+        <div class="input">
+            <input id="username" type="text" placeholder="أسم المستخدم" style="text-align: right; padding-left: 10px;">
+            <br><br>
+            <input id="password" type="password" placeholder="كلمه المرور" style="text-align: right; padding-left: 10px;">
+        </div>
+
+        <!-- Login button -->
+        <div class="button">
+            <button onclick="validateLogin()">تسجيل دخول</button>
+        </div>
+
+        <!-- Error message container -->
+        <div id="error-message" style="color: red; display: none; text-align: center; margin-top: 20px;">
+            اسم المستخدم أو كلمه المرور غير صحيحة.
+        </div>
+    </div>
+
+    <!-- JavaScript for validation -->
+    <script src="/front_end/js/loading.js"></script>
+    <script>
+        function validateLogin() {
+            // Get the values of username and password input fields
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            // Check if the username and password are both "admin"
+            if (username === 'admin' && password === 'admin') {
+                // If valid, redirect to another page (for example, 'dashboard.html')
+                window.location.href = 'scanner.html';  // Change this to your desired page
+            } else {
+                // If invalid, show an error message
+                errorMessage.style.display = 'block';
+            }
+        }
+        window.onload = function() {
+            setTimeout(function() {
+                document.querySelector('.loading-screen').style.display = 'none'; // Hide loading screen
+                document.querySelector('.login-page').style.display = 'flex'; // Show login form
+            }, 3000); // 3000 milliseconds = 3 seconds
+        };
+    </script>
+</body>
+
+</html>
