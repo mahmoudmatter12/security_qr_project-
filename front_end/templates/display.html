@@ -3,16 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Student Info</title>
+    <title>Student Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #143d87;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 50%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        div {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <div id="student-info"></div>
+    <div class="container">
+        <h1>Student Information</h1>
+        <div id="student-info"></div>
+    </div>
 
     <script>
-        // Retrieve the student data from localStorage
+        // Retrieve student data from localStorage
         const student = JSON.parse(localStorage.getItem('studentData'));
 
-        // Display the student data
         if (student) {
             document.getElementById('student-info').innerHTML = `
                 <div><strong>Student Name:</strong> ${student.name}</div>
