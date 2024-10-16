@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information</title>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script> <!-- QR code library -->
+</head>
+<body>
+
+    <form id="student-form">
+        <input type="text" id="student-id" placeholder="Enter student ID" />
+        <button type="submit">Submit</button>
+    </form>
+    
+    <div id="student-info"></div>
+
+    <button id="qr-reader-link">Scan QR Code</button>
+    <video id="preview" style="display:none;" width="400" height="300"></video>
+    <script src="/front_end/js/qr.js"></script>
+</body>
+</html>

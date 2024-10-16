@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LoginPage</title>
+    <link rel="stylesheet" href="/front_end/css/loading.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Loading screen (logo) -->
+    <div class="loading-screen">
+        <img src="/assits/logo.png" alt="Logo">
+    </div>
+
+    <!-- Login form (initially hidden) -->
+    <div class="login-page">
+        <div class="start">
+            <img src="/assits/logo.png" alt="Logo">
+        </div>
+
+        <div class="title">
+            <h1> ! مرحبا</h1>
+        </div>
+
+        <!-- Input fields for username and password -->
+        <div class="input">
+            <input id="username" type="text" placeholder="أسم المستخدم" style="text-align: right; padding-left: 10px;">
+            <br><br>
+            <input id="password" type="password" placeholder="كلمه المرور" style="text-align: right; padding-left: 10px;">
+        </div>
+
+        <!-- Login button -->
+        <div class="button">
+            <button onclick="validateLogin()">تسجيل دخول</button>
+        </div>
+
+        <!-- Error message container -->
+        <div id="error-message" style="color: red; display: none; text-align: center; margin-top: 20px;">
+            اسم المستخدم أو كلمه المرور غير صحيحة.
+        </div>
+    </div>
+
+    <!-- JavaScript for validation -->
+    <script src="/front_end/js/loading.js"></script>
+    <script>
+        function validateLogin() {
+            // Get the values of username and password input fields
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            // Check if the username and password are both "admin"
+            if (username === 'admin' && password === 'admin') {
+                // If valid, redirect to another page (for example, 'dashboard.html')
+                window.location.href = 'scanner.html';  // Change this to your desired page
+            } else {
+                // If invalid, show an error message
+                errorMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+name,id,college,department,year,paymentStatus
+John Doe,1234,Science,Physics,2023,Paid
+Jane Doe,,Arts,Literature,2022,Unpaid
