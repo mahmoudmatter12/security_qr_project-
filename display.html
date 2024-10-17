@@ -9,93 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/student-info.css">
 
     <title>بيانات الطالب</title>
-    <style>
-        body {
-            font-family: "Cairo", sans-serif;
-            font-optical-sizing: auto;
-            direction: ltr;
-            text-align: right;
-        }
-
-        .home {
-            background-color: #f8f9fa;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #143d87;
-        }
-
-        .card-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: #d17640;
-        }
-
-        .scanner {
-            display: block;
-            margin: auto;   
-            background-color: #d17640;
-            border: none;
-            padding: 1rem ;
-            cursor: pointer;
-            display: block;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        .student-detail {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            color: #333333;
-        }
-
-        .student-detail strong {
-            color: #d17640;
-            font-weight: 500;
-            padding-bottom: 10px;
-        }
-
-        .student-detail p {
-            color: #0a3179;
-            font-weight: bold;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-
-
-        .payment-success {
-            color: #28a745;
-            font-size: 3rem;
-            text-align: center;
-        }
-        .test{
-            color:#0a3179;
-            font-size: 1.5rem;
-            font-weight: bold;
-            
-        }
-
-        .payment-status {
-            color: #dc3545;
-            font-size: 3rem;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .student-info {
-                width: 100%;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -114,7 +30,7 @@
             </div>
         </div>
 
-        
+
 
         <script>
             // Retrieve student data from localStorage
@@ -127,8 +43,8 @@
                 <div class="student-detail Inline"><strong>: القسم </strong> <p class="center">${student.department}</p></div>
                 <div class="student-detail  "><strong>: السنة </strong> <p class="center">${student.year}</p></div>
                 <div class="student-detail"><strong>: حالة الدفع  </strong></div>
-                <div class="student-detail  ${student.paymentStatus == 1? 'payment-success' : 'payment-status'}">
-                    ${student.paymentStatus == 1? 'تم الدفع' : 'لم يتم الدفع'}
+                <div class="student-detail  ${student.paymentStatus == 1 ? 'payment-success' : 'payment-status'}">
+                    ${student.paymentStatus == 1 ? 'تم الدفع' : 'لم يتم الدفع'}
                 </div>
                 ${student.paymentStatus == 1 ? '<div class="payment-success">&#10004;</div>' : '<div class="payment-status">&#10006;</div>'}
             `;

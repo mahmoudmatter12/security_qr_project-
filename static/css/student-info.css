@@ -1,0 +1,84 @@
+body {
+    font-family: "Cairo", sans-serif;
+    font-optical-sizing: auto;
+    direction: ltr;
+    text-align: right;
+}
+
+.home {
+    background-color: #f8f9fa;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #143d87;
+}
+
+.card-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #d17640;
+}
+
+.scanner {
+    display: block;
+    margin: auto;
+    background-color: #d17640;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    display: block;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.student-detail {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #333333;
+}
+
+.student-detail strong {
+    color: #d17640;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+
+.student-detail p {
+    color: #0a3179;
+    font-weight: bold;
+}
+
+.center {
+    text-align: center;
+}
+
+
+
+.payment-success {
+    color: #28a745;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.test {
+    color: #0a3179;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}
+
+.payment-status {
+    color: #dc3545;
+    font-size: 3rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .student-info {
+        width: 100%;
+    }
+}
