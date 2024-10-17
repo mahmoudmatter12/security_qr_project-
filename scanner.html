@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Lookup with QR Code Reader</title>
     <link rel="stylesheet" href="static/css/scanner.css">
-    
+
     <style>
         .qr-text {
             display: block;
             background-color: #d17640;
             color: #ffffff;
             border: none;
-            padding: 10px 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .logout {
+            color: #ffffff;
+            background-color: #dc3545;
+            border: none;
+            padding: 5px 5px;
             cursor: pointer;
             border-radius: 5px;
             text-align: center;
             font-weight: bold;
         }
 
-        .logout{
-            color: #ffffff;
-            background-color: #dc3545;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
-        }
-        button{
+        button {
             padding: 10px 20px;
             background-color: #007bff;
             color: #ffffff;
@@ -37,26 +39,30 @@
             cursor: pointer;
             border-radius: 5px;
             font-weight: bold;
+            font-size:large;
         }
     </style>
 </head>
+
 <body>
-    
+
     <div class="container">
         <h1>معلومات الطالب</h1>
 
         <form id="student-form">
-            <input type="text" id="student-id" name="student-id" placeholder="Enter Student ID" required>
-            <button type="submit">Search</button>
+            <input type="text" id="student-id" name="student-id" placeholder="ادخل الرقم القومي " required
+                style="text-align: right;">
+            <button type="submit">بـحث</button>
         </form>
 
-        <span class="qr-text" id="qr-reader-link">Open QR Code Reader</span>
+        <span class="qr-text" id="qr-reader-link">فتح القارئ</span>
         <video id="preview"></video>
-        <a href="#" class="logout">logout</a>
+        <!-- <a href="#" class="logout">logout</a> -->
     </div>
 
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="static/js/scanner.js"></script>
 </body>
+
 </html>
