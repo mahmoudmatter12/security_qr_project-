@@ -193,3 +193,28 @@ button:hover {
       font-size: 16px;
   }
 }
+
+/* Error message styling */
+.error-message {
+  display: none; /* Initially hidden */
+  background-color: var(--error-color); /* Red background for error */
+  color: white;
+  border-radius: 10px;
+  padding: 15px 20px;
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  font-size: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(-20px); /* Starts off slightly above the view */
+}
+
+/* When the error message is triggered */
+.error-message.show {
+  display: block; /* Show the element */
+  opacity: 1; /* Make it visible */
+  transform: translateY(0); /* Slide it in smoothly */
+}

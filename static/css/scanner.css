@@ -66,3 +66,16 @@ video {
   width: 100%;
   border-radius: 15px;
 }
+
+
+a {
+  display: block;
+  color: #d17640;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+
+a:hover {
+  color: #6aabdf;
+}
