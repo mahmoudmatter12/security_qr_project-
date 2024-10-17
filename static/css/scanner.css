@@ -35,19 +35,6 @@ input {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-button {
-  padding: 10px 20px;
-  background-color: #d17640;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #6aabdf;
-}
-
 .qr-text {
   display: block;
   color: #d17640;

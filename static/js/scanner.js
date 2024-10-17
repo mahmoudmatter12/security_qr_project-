@@ -81,7 +81,6 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
     });
 });
 
-
 document.querySelector('.logout').addEventListener('click', function (event) {
     event.preventDefault();
     window.location.href = 'index.html';
