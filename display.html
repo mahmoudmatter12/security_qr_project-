@@ -74,13 +74,19 @@
 
         .payment-success {
             color: #28a745;
-            font-size: 4rem;
+            font-size: 3rem;
             text-align: center;
+        }
+        .test{
+            color:#0a3179;
+            font-size: 1.5rem;
+            font-weight: bold;
+            
         }
 
         .payment-status {
             color: #dc3545;
-            font-size: 4rem;
+            font-size: 3rem;
             text-align: center;
         }
 
@@ -121,6 +127,9 @@
                 <div class="student-detail Inline"><strong>: القسم </strong> <p class="center">${student.department}</p></div>
                 <div class="student-detail  "><strong>: السنة </strong> <p class="center">${student.year}</p></div>
                 <div class="student-detail"><strong>: حالة الدفع  </strong></div>
+                <div class="student-detail  ${student.paymentStatus == 1? 'payment-success' : 'payment-status'}">
+                    ${student.paymentStatus == 1? 'تم الدفع' : 'لم يتم الدفع'}
+                </div>
                 ${student.paymentStatus == 1 ? '<div class="payment-success">&#10004;</div>' : '<div class="payment-status">&#10006;</div>'}
             `;
             } else {
