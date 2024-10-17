@@ -1,3 +1,8 @@
+:root {
+  --main-color: ##1b3879;
+  --secondary-color: #d17640;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #143d87;
@@ -7,6 +12,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url(../images/home2.png);
 }
 
 .container {

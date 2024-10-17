@@ -6,12 +6,18 @@ body {
 }
 
 .home {
-    background-color: #f8f9fa;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #143d87;
+    background-image: url(../images/home2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.home2{
+    background-color: red;
+
 }
 
 .card-title {
