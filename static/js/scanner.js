@@ -46,7 +46,8 @@ document.getElementById('student-form').addEventListener('submit', function (eve
         // Redirect to display.html
         window.location.href = 'display.html';
     } else {
-        alert('No student found with this ID.');
+        localStorage.setItem('studentData', JSON.stringify(null));
+        window.location.href = 'display.html';
     }
 });
 
