@@ -1,3 +1,29 @@
+function LoadUsers() {
+    return fetch('/users.csv')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            const users = data.split('\n').map(row => {
+                const [username, password] = row.split(',');
+                if (username && password) {
+                    return { username: username.trim(), password: password.trim() };
+                }
+                return null;
+            }).filter(user => user !== null);
+            // console.log('Loaded users:', users);
+            return users; // Return the users array
+           
+        })
+        .catch(error => {
+            console.error('Error loading users:', error);
+            return []; // Return an empty array in case of error
+        });
+}
+
 function validateLogin() {
     // Get the values of username and password input fields
     const username = document.getElementById('username').value.trim();
@@ -8,14 +34,20 @@ function validateLogin() {
     errorMessage.classList.remove('show');
     errorMessage.style.display = 'none'; // Ensure it is hidden initially
 
-    // Check if the username and password are both "admin"
-    if (username === 'admin' && password === 'admin') {
-        // If valid, redirect to another page
-        window.location.href = 'scanner.html';  // Change this to your desired page
-    } else {
-        // If invalid, show the error message
+    // Load users and validate the login credentials
+    LoadUsers().then(users => {
+        const user = users.find(user => user.username === username);
+        if (user && user.password === password) {
+            // If valid, redirect to another page
+            window.location.href = 'scanner.html';  // Change this to your desired page
+        } else {
+            // If invalid, show the error message
+            showErrorMessage();
+        }
+    }).catch(error => {
+        console.error('Error during login validation:', error);
         showErrorMessage();
-    }
+    });
 }
 
 function showErrorMessage() {
@@ -40,8 +72,10 @@ function hideErrorMessage() {
 
 
 window.onload = function () {
+    // Simulate loading screen
+    LoadUsers();
     setTimeout(function () {
         document.querySelector('.loading-screen').style.display = 'none'; // Hide loading screen
         document.querySelector('.login-page').style.display = 'flex'; // Show login form
-    }, 3000); // 3000 milliseconds = 3 seconds
+    }, 1500); // 1500 milliseconds = 1.5 seconds
 };

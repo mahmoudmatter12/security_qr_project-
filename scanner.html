@@ -39,25 +39,87 @@
             cursor: pointer;
             border-radius: 5px;
             font-weight: bold;
-            font-size:large;
+            font-size: large;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh;
+        }
+
+        .name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20vh;
+        }
+
+        .name h1 {
+            font-size: 30px;
+            color: black;
+        }
+        .header {
+            background-color: #ddd;
+            color: #ffffff;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 
 <body>
+    <div class="home">
+        <div class="name">
+            <div class="header">
+                <h1>   نـــظــام الحـضور والأنـصـراف</h1>
+            </div>
+        </div>
+        <div class="center">
+            <div class="container">
+                <h1>معلومات الطالب</h1>
 
-    <div class="container">
-        <h1>معلومات الطالب</h1>
+                <form id="student-form">
+                    <input type="text" id="student-id" name="student-id" placeholder="ادخل الرقم القومي " required
+                        style="text-align: right;">
+                    <button type="submit">بـحث</button>
+                </form>
 
-        <form id="student-form">
-            <input type="text" id="student-id" name="student-id" placeholder="ادخل الرقم القومي " required
-                style="text-align: right;">
-            <button type="submit">بـحث</button>
-        </form>
+                <span class="qr-text" id="qr-reader-link">فتح القارئ</span>
+                <video id="preview"></video>
+                <!-- <a href="#" class="logout">logout</a> -->
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <!-- Developer Names -->
+                <div class="developers">
+                    <h3>Developed by:</h3>
+                    <ul>
+                        <li>Ali Azz</li>
+                        <li>Mahmoud Matter</li>
+                        <li>Nada Walid</li>
+                        <li>Amr Yasser</li>
+                        <li>Yousef El Tony</li>
+                    </ul>
+                </div>
 
-        <span class="qr-text" id="qr-reader-link">فتح القارئ</span>
-        <video id="preview"></video>
-        <!-- <a href="#" class="logout">logout</a> -->
+                <!-- Supervisors -->
+                <div class="supervisors">
+                    <div class="content">
+                        <h3>Supervised by:</h3>
+                        <p>Dr. Helal Ahmed,<br> Dr. Salwa Osama</p>
+                        <div class="content">
+                            <p>&copy; 2024 HNU FCSIT. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
     </div>
 
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
