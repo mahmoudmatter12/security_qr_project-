@@ -52,31 +52,35 @@ document.getElementById('student-form').addEventListener('submit', function (eve
 });
 
 // QR Code Reader handling
-Instascan.Camera.getCameras().then(function (cameras) {
-    if (cameras.length > 0) {
-        const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
-        const frontCamera = cameras.find(camera => camera.name.toLowerCase().includes('front'));
+document.getElementById('qr-reader-link').addEventListener('click', function (event) {
+    event.preventDefault();
+    const video = document.getElementById('preview');
+    video.style.display = 'block';
 
-        if (backCamera) {
-            scanner.start(backCamera);
-            video.style.transform = ''; // No flip for back camera
-        } else if (frontCamera) {
-            scanner.start(frontCamera);
-            video.style.transform = 'scaleX(-1)'; // Flip video for front camera
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        document.getElementById('student-id').value = content;
+        video.style.display = 'none';
+    });
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
+            if (backCamera) {
+                scanner.start(backCamera);
+            } else {
+                scanner.start(cameras[0]);
+            }
         } else {
-            alert('Camera not found. Please use a device with a camera.');
+            alert('No cameras found or access denied. Please allow camera access.');
             video.style.display = 'none';
         }
-    } else {
-        alert('No cameras found or access denied. Please allow camera access.');
+    }).catch(function (e) {
+        console.error('Error starting camera:', e);
+        alert('Error starting camera. Please check browser permissions.');
         video.style.display = 'none';
-    }
-}).catch(function (e) {
-    console.error('Error starting camera:', e);
-    alert('Error starting camera. Please check browser permissions.');
-    video.style.display = 'none';
+    });
 });
-
 
 document.querySelector('.logout').addEventListener('click', function (event) {
     event.preventDefault();
