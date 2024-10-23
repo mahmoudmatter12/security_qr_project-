@@ -51,36 +51,34 @@ document.getElementById('student-form').addEventListener('submit', function (eve
     }
 });
 
-// QR Code Reader handling
-document.getElementById('qr-reader-link').addEventListener('click', function (event) {
-    event.preventDefault();
-    const video = document.getElementById('preview');
-    video.style.display = 'block';
+Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
+        // Look for back camera first
+        const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
+        const frontCamera = cameras.find(camera => camera.name.toLowerCase().includes('front'));
 
-    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-    scanner.addListener('scan', function (content) {
-        document.getElementById('student-id').value = content;
-        video.style.display = 'none';
-    });
-
-    Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-            const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
-            if (backCamera) {
-                scanner.start(backCamera);
-            } else {
-                scanner.start(cameras[0]);
-            }
+        if (backCamera) {
+            // Start with the back camera, no flip needed
+            scanner.start(backCamera);
+            video.style.transform = ''; // No flip
+        } else if (frontCamera) {
+            // Use the front camera, apply the flip to correct mirroring
+            scanner.start(frontCamera);
+            video.style.transform = 'scaleX(-1)'; // Flip for front camera
         } else {
-            alert('No cameras found or access denied. Please allow camera access.');
+            alert('No suitable camera found. Please use a device with a back or front camera.');
             video.style.display = 'none';
         }
-    }).catch(function (e) {
-        console.error('Error starting camera:', e);
-        alert('Error starting camera. Please check browser permissions.');
+    } else {
+        alert('No cameras found or access denied. Please allow camera access.');
         video.style.display = 'none';
-    });
+    }
+}).catch(function (e) {
+    console.error('Error starting camera:', e);
+    alert('Error starting camera. Please check browser permissions.');
+    video.style.display = 'none';
 });
+
 
 document.querySelector('.logout').addEventListener('click', function (event) {
     event.preventDefault();
