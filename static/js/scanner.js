@@ -50,14 +50,12 @@ document.getElementById('student-form').addEventListener('submit', function (eve
         window.location.href = 'display.html';
     }
 });
+
 // QR Code Reader handling
 document.getElementById('qr-reader-link').addEventListener('click', function (event) {
     event.preventDefault();
     const video = document.getElementById('preview');
     video.style.display = 'block';
-
-    // Make sure the video isn't mirrored for the back camera
-    video.style.transform = ''; // Reset transform
 
     if (typeof Instascan === 'undefined') {
         console.error('Instascan library is not loaded.');
@@ -66,48 +64,33 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
         return;
     }
 
-    // Access environment-facing camera
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } } })
-        .then(function (stream) {
-            video.srcObject = stream;
-            video.play();
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        document.getElementById('student-id').value = content;
+        video.style.display = 'none';
+    });
 
-            let scanner = new Instascan.Scanner({ video: video });
-            scanner.addListener('scan', function (content) {
-                document.getElementById('student-id').value = content;
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
+            if (backCamera) {
+                scanner.start(backCamera);
+                // Flip the camera preview
+                video.style.transform = 'scaleX(-1)';
+            } else {
+                alert('Back camera not found. Please use a device with a back camera.');
                 video.style.display = 'none';
-                stream.getTracks().forEach(track => track.stop()); // Stop camera
-            });
-
-            Instascan.Camera.getCameras().then(function (cameras) {
-                if (cameras.length > 0) {
-                    const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('environment'));
-                    if (backCamera) {
-                        scanner.start(backCamera);
-                    }
-                } else {
-                    alert('No cameras found or access denied. Please allow camera access.');
-                    video.style.display = 'none';
-                    stream.getTracks().forEach(track => track.stop());
-                }
-            }).catch(function (e) {
-                console.error('Error starting camera:', e);
-                alert('Error starting camera. Please check browser permissions.');
-                video.style.display = 'none';
-                stream.getTracks().forEach(track => track.stop());
-            });
-        })
-        .catch(function (e) {
-            console.error('Error accessing camera:', e);
-            alert('Error accessing camera. Please check browser permissions.');
+            }
+        } else {
+            alert('No cameras found or access denied. Please allow camera access.');
             video.style.display = 'none';
-        });
+        }
+    }).catch(function (e) {
+        console.error('Error starting camera:', e);
+        alert('Error starting camera. Please check browser permissions.');
+        video.style.display = 'none';
+    });
 });
-
-// CSS to prevent mirroring (if needed for video preview)
-// For front camera (usually mirrored), apply this, but reset for back camera
-
-
 
 document.querySelector('.logout').addEventListener('click', function (event) {
     event.preventDefault();
