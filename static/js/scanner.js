@@ -81,7 +81,7 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
 
             Instascan.Camera.getCameras().then(function (cameras) {
                 if (cameras.length > 0) {
-                    const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
+                    const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('environment'));
                     if (backCamera) {
                         scanner.start(backCamera);
                     } else {
