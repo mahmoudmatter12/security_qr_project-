@@ -84,10 +84,6 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
                     const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('environment'));
                     if (backCamera) {
                         scanner.start(backCamera);
-                    } else {
-                        alert('Back camera not found. Please use a device with a back camera.');
-                        video.style.display = 'none';
-                        stream.getTracks().forEach(track => track.stop());
                     }
                 } else {
                     alert('No cameras found or access denied. Please allow camera access.');
