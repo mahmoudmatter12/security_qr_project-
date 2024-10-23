@@ -4,7 +4,8 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Cairo", sans-serif;
+  font-optical-sizing: auto;
   background-color: #143d87;
   margin: 0;
   padding: 0;
@@ -17,10 +18,10 @@ body {
 }
 
 .container {
-  width: 50%;
+  width: 60%;
   background-color: #fff;
-  padding: 20px;
-  border-radius: 15px;
+  padding: 30px;
+  border-radius: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   text-align: center;
   margin: 0 auto;
@@ -28,6 +29,7 @@ body {
 
 h1 {
   color: #333;
+  font-size: 2.5em;
 }
 
 form {
