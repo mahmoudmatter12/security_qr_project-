@@ -57,9 +57,6 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
     const video = document.getElementById('preview');
     video.style.display = 'block';
 
-    // Clear the input field
-    document.getElementById('student-id').value = '';
-
     if (typeof Instascan === 'undefined') {
         console.error('Instascan library is not loaded.');
         alert('QR Code scanning is not available. Please check if the Instascan library is loaded.');
@@ -77,6 +74,9 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
         if (cameras.length > 0) {
             const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
             if (backCamera) {
+                // Ensure the input field is empty before starting the scanner
+                document.getElementById('student-id').value = '';
+                
                 scanner.start(backCamera);
                 // Flip the camera preview
                 video.style.transform = 'scaleX(1)';
