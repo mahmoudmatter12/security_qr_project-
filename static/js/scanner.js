@@ -87,7 +87,7 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
         }
     }).catch(function (e) {
         console.error('Error starting camera:', e);
-        alert('Error starting camera. Please check browser permissions.');
+        alert('برجاء التاكد بمسح خانة ادخال الرقم القومي من خلال زر المسح');
         video.style.display = 'none';
     });
 });
@@ -96,3 +96,7 @@ document.querySelector('.logout').addEventListener('click', function (event) {
     event.preventDefault();
     window.location.href = 'index.html';
 });
+
+function clearInput() {
+    document.getElementById('student-id').value = '';
+}
