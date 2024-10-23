@@ -64,30 +64,45 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
         return;
     }
 
-    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-    scanner.addListener('scan', function (content) {
-        document.getElementById('student-id').value = content;
-        video.style.display = 'none';
-    });
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } } })
+        .then(function (stream) {
+            video.srcObject = stream;
+            video.play();
 
-    Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-            const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
-            if (backCamera) {
-                scanner.start(backCamera);
-            } else {
-                alert('Back camera not found. Please use a device with a back camera.');
+            let scanner = new Instascan.Scanner({ video: video });
+            scanner.addListener('scan', function (content) {
+                document.getElementById('student-id').value = content;
                 video.style.display = 'none';
-            }
-        } else {
-            alert('No cameras found or access denied. Please allow camera access.');
+                stream.getTracks().forEach(track => track.stop());
+            });
+
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
+                    if (backCamera) {
+                        scanner.start(backCamera);
+                    } else {
+                        alert('Back camera not found. Please use a device with a back camera.');
+                        video.style.display = 'none';
+                        stream.getTracks().forEach(track => track.stop());
+                    }
+                } else {
+                    alert('No cameras found or access denied. Please allow camera access.');
+                    video.style.display = 'none';
+                    stream.getTracks().forEach(track => track.stop());
+                }
+            }).catch(function (e) {
+                console.error('Error starting camera:', e);
+                alert('Error starting camera. Please check browser permissions.');
+                video.style.display = 'none';
+                stream.getTracks().forEach(track => track.stop());
+            });
+        })
+        .catch(function (e) {
+            console.error('Error accessing camera:', e);
+            alert('Error accessing camera. Please check browser permissions.');
             video.style.display = 'none';
-        }
-    }).catch(function (e) {
-        console.error('Error starting camera:', e);
-        alert('Error starting camera. Please check browser permissions.');
-        video.style.display = 'none';
-    });
+        });
 });
 
 document.querySelector('.logout').addEventListener('click', function (event) {
