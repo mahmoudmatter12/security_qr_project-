@@ -57,6 +57,9 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
     const video = document.getElementById('preview');
     video.style.display = 'block';
 
+    // Clear the input field
+    document.getElementById('student-id').value = '';
+
     if (typeof Instascan === 'undefined') {
         console.error('Instascan library is not loaded.');
         alert('QR Code scanning is not available. Please check if the Instascan library is loaded.');
