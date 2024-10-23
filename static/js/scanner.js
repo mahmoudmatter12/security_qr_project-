@@ -51,60 +51,45 @@ document.getElementById('student-form').addEventListener('submit', function (eve
     }
 });
 
-// Custom QR Code Reader handling (using jsQR)
+// QR Code Reader handling
 document.getElementById('qr-reader-link').addEventListener('click', function (event) {
     event.preventDefault();
-
     const video = document.getElementById('preview');
-    video.style.display = 'block'; // Show video preview
+    video.style.display = 'block';
 
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Open the camera with back-facing preference
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } } })
-            .then(function (stream) {
-                video.srcObject = stream;
-                video.play();
-                scanQRCode(video); // Start scanning for QR code
-            })
-            .catch(function (err) {
-                console.error('Error accessing camera:', err);
-                alert('Could not access the camera. Please allow camera access.');
-            });
-    } else {
-        alert('Camera is not supported in this browser.');
+    if (typeof Instascan === 'undefined') {
+        console.error('Instascan library is not loaded.');
+        alert('QR Code scanning is not available. Please check if the Instascan library is loaded.');
+        video.style.display = 'none';
+        return;
     }
+
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        document.getElementById('student-id').value = content;
+        video.style.display = 'none';
+    });
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
+            if (backCamera) {
+                scanner.start(backCamera);
+            } else {
+                alert('Back camera not found. Please use a device with a back camera.');
+                video.style.display = 'none';
+            }
+        } else {
+            alert('No cameras found or access denied. Please allow camera access.');
+            video.style.display = 'none';
+        }
+    }).catch(function (e) {
+        console.error('Error starting camera:', e);
+        alert('Error starting camera. Please check browser permissions.');
+        video.style.display = 'none';
+    });
 });
 
-function scanQRCode(video) {
-    const canvasElement = document.createElement('canvas');
-    const canvas = canvasElement.getContext('2d');
-
-    function checkFrame() {
-        if (video.readyState === video.HAVE_ENOUGH_DATA) {
-            canvasElement.width = video.videoWidth;
-            canvasElement.height = video.videoHeight;
-            canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-
-            const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-            const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
-
-            if (qrCode) {
-                video.style.display = 'none'; // Hide video once QR code is found
-                document.getElementById('student-id').value = qrCode.data;
-                video.srcObject.getTracks().forEach(track => track.stop()); // Stop camera stream
-
-                // Optional: Trigger form submission automatically after QR scan
-                // document.getElementById('student-form').submit();
-            }
-        }
-
-        requestAnimationFrame(checkFrame); // Keep scanning
-    }
-
-    requestAnimationFrame(checkFrame); // Start scanning
-}
-
-// Handle logout functionality
 document.querySelector('.logout').addEventListener('click', function (event) {
     event.preventDefault();
     window.location.href = 'index.html';
