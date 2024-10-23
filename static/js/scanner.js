@@ -50,12 +50,14 @@ document.getElementById('student-form').addEventListener('submit', function (eve
         window.location.href = 'display.html';
     }
 });
-
 // QR Code Reader handling
 document.getElementById('qr-reader-link').addEventListener('click', function (event) {
     event.preventDefault();
     const video = document.getElementById('preview');
     video.style.display = 'block';
+
+    // Make sure the video isn't mirrored for the back camera
+    video.style.transform = ''; // Reset transform
 
     if (typeof Instascan === 'undefined') {
         console.error('Instascan library is not loaded.');
@@ -64,6 +66,7 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
         return;
     }
 
+    // Access environment-facing camera
     navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } } })
         .then(function (stream) {
             video.srcObject = stream;
@@ -73,7 +76,7 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
             scanner.addListener('scan', function (content) {
                 document.getElementById('student-id').value = content;
                 video.style.display = 'none';
-                stream.getTracks().forEach(track => track.stop());
+                stream.getTracks().forEach(track => track.stop()); // Stop camera
             });
 
             Instascan.Camera.getCameras().then(function (cameras) {
@@ -104,6 +107,11 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
             video.style.display = 'none';
         });
 });
+
+// CSS to prevent mirroring (if needed for video preview)
+// For front camera (usually mirrored), apply this, but reset for back camera
+
+
 
 document.querySelector('.logout').addEventListener('click', function (event) {
     event.preventDefault();
