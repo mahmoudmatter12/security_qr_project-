@@ -74,9 +74,6 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
         if (cameras.length > 0) {
             const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back') || camera.name.toLowerCase().includes('environment'));
             if (backCamera) {
-                // Ensure the input field is empty before starting the scanner
-                document.getElementById('student-id').value = '';
-                
                 scanner.start(backCamera);
                 // Flip the camera preview
                 video.style.transform = 'scaleX(1)';
