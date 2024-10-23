@@ -57,6 +57,13 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
     const video = document.getElementById('preview');
     video.style.display = 'block';
 
+    if (typeof Instascan === 'undefined') {
+        console.error('Instascan library is not loaded.');
+        alert('QR Code scanning is not available. Please check if the Instascan library is loaded.');
+        video.style.display = 'none';
+        return;
+    }
+
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
         document.getElementById('student-id').value = content;
@@ -69,7 +76,8 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
             if (backCamera) {
                 scanner.start(backCamera);
             } else {
-                scanner.start(cameras[0]);
+                alert('Back camera not found. Please use a device with a back camera.');
+                video.style.display = 'none';
             }
         } else {
             alert('No cameras found or access denied. Please allow camera access.');
