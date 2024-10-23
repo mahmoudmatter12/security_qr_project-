@@ -60,7 +60,7 @@ document.getElementById('qr-reader-link').addEventListener('click', function (ev
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         // Open the camera with back-facing preference
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
             .then(function (stream) {
                 video.srcObject = stream;
                 video.play();
