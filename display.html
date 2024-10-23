@@ -10,13 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="static/css/student-info.css">
-
-    <title>بيانات الطالب</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <title>عرض بيانات الطلاب</title>
+    
 </head>
 
 <body>
-
-
     <div class="home">
         <div class="d-flex justify-content-center card2">
             <div class="student-info">
@@ -30,8 +29,6 @@
             </div>
         </div>
 
-
-
         <script>
             // Retrieve student data from localStorage
             const student = JSON.parse(localStorage.getItem('studentData'));
@@ -41,7 +38,7 @@
                 <div class="student-detail"><strong>: الأسم </strong> <p class="center">${student.name}</p></div>
                 <div class="student-detail"><strong>: الكلية </strong><p class="center"> ${student.college}</p></div>
                 <div class="student-detail Inline"><strong>: القسم </strong> <p class="center">${student.department}</p></div>
-                <div class="student-detail  "><strong>: السنة </strong> <p class="center">${student.year}</p></div>
+                <div class="student-detail  "><strong>: الفرقة </strong> <p class="center">${student.year}</p></div>
                 <div class="student-detail"><strong>: حالة الدفع  </strong></div>
                 <div class="student-detail  ${student.paymentStatus == 1 ? 'payment-success' : 'payment-status'}">
                     ${student.paymentStatus == 1 ? 'تم الدفع' : 'لم يتم الدفع'}
