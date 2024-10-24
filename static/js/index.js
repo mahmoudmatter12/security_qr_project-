@@ -1,27 +1,22 @@
-function LoadUsers() {
-    return fetch('/users.csv')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+async function LoadUsers() {
+    try {
+        const response = await fetch('/users.csv');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.text();
+        const users = data.split('\n').map(row => {
+            const [username, password] = row.split(',');
+            if (username && password) {
+                return { username: username.trim(), password: password.trim() };
             }
-            return response.text();
-        })
-        .then(data => {
-            const users = data.split('\n').map(row => {
-                const [username, password] = row.split(',');
-                if (username && password) {
-                    return { username: username.trim(), password: password.trim() };
-                }
-                return null;
-            }).filter(user => user !== null);
-            // console.log('Loaded users:', users);
-            return users; // Return the users array
-           
-        })
-        .catch(error => {
-            console.error('Error loading users:', error);
-            return []; // Return an empty array in case of error
-        });
+            return null;
+        }).filter(user => user !== null);
+        return users;
+    } catch (error) {
+        console.error('Error loading users:', error);
+        return [];
+    }
 }
 
 function validateLogin() {
@@ -54,8 +49,9 @@ function showErrorMessage() {
     const errorMessage = document.getElementById('error-message');
     errorMessage.style.display = 'block';  // Make sure it is visible
     errorMessage.style.position = 'absolute'; // Make it floating
-    errorMessage.style.bottom = '10px'; // Position it 10px from the bottom of the button
+    errorMessage.style.bottom = '40px'; // Position it 10px from the bottom of the button
     errorMessage.style.left = '50%'; // Center it horizontally
+    errorMessage.style.fontSize = '2.5rem'; // Increase font size
     errorMessage.style.transform = 'translateX(-50%)'; // Adjust for centering
     setTimeout(() => {
         errorMessage.classList.add('show'); // Add the class with animation
@@ -75,7 +71,22 @@ window.onload = function () {
     // Simulate loading screen
     LoadUsers();
     setTimeout(function () {
-        document.querySelector('.loading-screen').style.display = 'none'; // Hide loading screen
-        document.querySelector('.login-page').style.display = 'flex'; // Show login form
+        const loadingScreen = document.querySelector('.loading-screen');
+        const loginPage = document.querySelector('.login-page');
+
+        // Add a fade-out effect to the loading screen
+        loadingScreen.style.transition = 'opacity 1s ease-out';
+        loadingScreen.style.opacity = '0';
+
+        // After the fade-out effect, hide the loading screen and show the login form
+        setTimeout(function () {
+            loadingScreen.style.display = 'none';
+            loginPage.style.display = 'flex';
+            loginPage.style.opacity = '0';
+
+            // Add a fade-in effect to the login form
+            loginPage.style.transition = 'opacity 1s ease-in';
+            loginPage.style.opacity = '1';
+        }, 1000); // Wait for the fade-out effect to complete
     }, 1500); // 1500 milliseconds = 1.5 seconds
 };
